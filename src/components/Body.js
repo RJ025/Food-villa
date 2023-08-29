@@ -34,7 +34,7 @@ const Body = () => {
         const json = await result.json();
         console.log(json?.data?.cards[0])
         setAllRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-        setFilteredRestaurant(json.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        setFilteredRestaurant(json.data.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     }
 
     if(!allRestaurant)return null; //early return 
