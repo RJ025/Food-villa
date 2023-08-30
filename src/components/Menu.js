@@ -1,10 +1,26 @@
 import { useState } from "react";
 import { IMG_CDN_URL } from "../Config";
+import { addItem , removeItem } from "../utils/CartSlice";
+import { useDispatch } from "react-redux";
+
 
 const Menu = ({menuDish}) => {
 
     const { id, name, description, price, imageId , itemAttribute} = menuDish;
     const [count , setCount] = useState(0);
+    const dispatch = useDispatch();
+
+    const handleAdd = (count) => {
+        dispatch(addItem(menuDish));
+        setCount(count+1);
+    }
+
+    const handleRemove = (count) => {
+        dispatch(removeItem());
+        setCount(count-1);
+    }
+
+
 
     console.log("render")
 
@@ -41,9 +57,9 @@ const Menu = ({menuDish}) => {
             )}
 
             <div  className="flex justify-evenly items-center w-[100px] h-[34px] mt-2.5 text-gray-count outline-none border bg-white border-gray">
-                <button className="text-xl text-gray-count font-semibold" onClick={()=>setCount(count+1)}>+</button>
+                <button className="text-xl text-gray-count font-semibold" onClick={()=>handleAdd(count)}>+</button>
                 {(count>=0)?<span className="text-base text-green">{count}</span>:<span>0</span>}
-                {(count>=0)?<button className="text-xl text-gray-count font-semibold" onClick={()=>setCount(count - 1)}>-</button>:<button className="text-xl text-gray-count font-semibold">-</button>}
+                {(count>=0)?<button className="text-xl text-gray-count font-semibold" onClick={()=>handleRemove(count)}>-</button>:<button className="text-xl text-gray-count font-semibold">-</button>}
             </div>
             
              

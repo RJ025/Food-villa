@@ -9,6 +9,11 @@ import RestaurantDetails from "./components/RestaurantDetails";
 import { Suspense, lazy, useState } from "react";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
+import SignupForm from "./components/Signup";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import Cart from "./components/Cart";
+
 const Instamart = lazy(()=>import("./components/Instamart"))
 
 function App() {
@@ -17,7 +22,7 @@ function App() {
     email : "test@gmail.com"
   }) 
   return (
-    <div>
+    <Provider store={store}>
 
       <UserContext.Provider value={{
         user : user ,
@@ -28,7 +33,7 @@ function App() {
         <Footer/>
       </UserContext.Provider>
       
-    </div>
+    </Provider>
   );
 }
 
@@ -61,6 +66,14 @@ const appRouter = createBrowserRouter([
               <Instamart/>
             </Suspense>
         )
+      } ,
+      {
+        path : "/signup" ,
+        element : <SignupForm/>
+      } ,
+      {
+        path : "/cart" ,
+        element : <Cart/>
       }
     ]
   } 

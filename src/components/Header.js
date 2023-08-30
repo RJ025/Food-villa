@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+import store from "../utils/store";
 
 const Title = () => (
     <a href="/">
@@ -23,13 +25,14 @@ const Header = () => {
     const {user} = useContext(UserContext);
     console.log(user);
 
+    const cartItems = useSelector(store => store.cart.items)
+
   return (
     <div className='flex justify-between'>
         <Title/>
 
-        <div className=" flex justify-between px-5">
+        <div className=" flex justify-between px-5 ">
             <ul className="flex justify-around p-4">
-                <l1>{user.name}-{user.email}</l1>
                 <Link to="/">
                     <li className="mx-4">Home</li>
                 </Link>
@@ -42,10 +45,13 @@ const Header = () => {
                 <Link to="/instamart">
                     <li className="">Instamart</li>                
                 </Link>
-                <li className="mx-4">Cart</li>
+                <Link to="/cart">
+                    <li className="mx-4">Cart - {cartItems.length}</li>
+                </Link>
                 {(isOnline)?<p>🟢</p>:<p>🔴</p>}
+                {(isLoggedIn) ?  <Link to="/signup" onClick={()=>setIsLoggedIn(!isLoggedIn)}>logout</Link> : <Link onClick={()=>setIsLoggedIn(!isLoggedIn)}>Login</Link>}
+
             </ul>
-            {(isLoggedIn) ?  <button onClick={()=>setIsLoggedIn(!isLoggedIn)}>logout</button> : <button onClick={()=>setIsLoggedIn(!isLoggedIn)}>Login</button>}
         </div>
         
         
